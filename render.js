@@ -262,7 +262,7 @@ function setupWebGL() {
       var cw = imageCanvas.width, ch = imageCanvas.height; 
       imageContext = imageCanvas.getContext("2d"); 
       var bkgdImage = new Image(); 
-      bkgdImage.src = "https://ncsucgclass.github.io/prog3/sky.jpg";
+      bkgdImage.src = "https://pages.github.ncsu.edu/kabartus/Missile-Command/background.png";
       bkgdImage.onload = function(){
           var iw = bkgdImage.width, ih = bkgdImage.height;
           imageContext.drawImage(bkgdImage,0,0,iw,ih,0,0,cw,ch);   
