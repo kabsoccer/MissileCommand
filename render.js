@@ -767,8 +767,6 @@ function renderModels() {
     mat4.lookAt(vMatrix,Eye,Center,Up); // create view matrix
     mat4.multiply(pvMatrix,pvMatrix,pMatrix); // projection
     mat4.multiply(pvMatrix,pvMatrix,vMatrix); // projection * view
-    
-    gl.uniform1i(texModeULoc, textureMode);
 
     // render each triangle set
     var currSet; // the tri set and its material properties
@@ -791,6 +789,7 @@ function renderModels() {
 		if (triTextures[whichTriSet] == -1) {
 			gl.uniform1i(texModeULoc, -1);
 		} else {
+			gl.uniform1i(texModeULoc, textureMode);
 			gl.activeTexture(gl.TEXTURE0);
 			gl.bindTexture(gl.TEXTURE_2D, triTextures[whichTriSet].texture);
 			gl.uniform1i(textureULoc, 0);
@@ -817,9 +816,14 @@ function renderModels() {
         ellipsoid = inputEllipsoids[whichEllipsoid];
         
         // texture
-        gl.activeTexture(gl.TEXTURE0);
-    	  gl.bindTexture(gl.TEXTURE_2D, ellTextures[whichEllipsoid].texture);
-    	  gl.uniform1i(textureULoc, 0);
+		if (ellTextures[whichEllipsoid] == -1) {
+			gl.uniform1i(texModeULoc, -1);
+		} else {
+			gl.uniform1i(texModeULoc, textureMode);
+			gl.activeTexture(gl.TEXTURE0);
+			gl.bindTexture(gl.TEXTURE_2D, ellTextures[whichEllipsoid].texture);
+			gl.uniform1i(textureULoc, 0);
+		}
         
         // define model transform, premult with pvmMatrix, feed to vertex shader
         makeModelTransform(ellipsoid);
