@@ -291,16 +291,18 @@ function loadTextures() {
 	for (var i = 0; i < inputTriangles.length; i++) {
 		if (inputTriangles[i].material.texture == "none") {
 			triTextures[i] = -1;
+		} else {
+			triTextures[i] = loadImageAndCreateTextureInfo(BASE_URL + inputTriangles[i].material.texture);
 		}
-    	triTextures[i] = loadImageAndCreateTextureInfo(BASE_URL + inputTriangles[i].material.texture);
     }
     console.log(triTextures);
     
     for (var i = 0; i < inputEllipsoids.length; i++) {
 		if (inputEllipsoids[i].texture == "none") {
 			ellTextures[i] = -1;
+		} else {
+			ellTextures[i] = loadImageAndCreateTextureInfo(BASE_URL + inputEllipsoids[i].texture);
 		}
-    	ellTextures[i] = loadImageAndCreateTextureInfo(BASE_URL + inputEllipsoids[i].texture);
     }
     console.log(ellTextures);
 }
