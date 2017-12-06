@@ -855,7 +855,7 @@ function renderModels() {
         // draw a transformed instance of the ellipsoid
         gl.drawElements(gl.TRIANGLES,triSetSizes[numTriangleSets+0],gl.UNSIGNED_SHORT,0); // render
 		
-		enemyMissiles[i][1] -= .005;
+		enemyMissiles[i][1] -= .001;
     } // end for each ellipsoid
 } // end render model
 
