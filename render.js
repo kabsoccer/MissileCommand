@@ -819,7 +819,7 @@ function renderModels() {
     for (var i = 0; i < enemyMissiles.length; i++) {
         ellipsoid = inputEllipsoids[0];
 		
-		inputEllipsoids[0].center = enemyMissiles[i];
+		//inputEllipsoids[0].center = enemyMissiles[i];
 		inputEllipsoids[0].translation = vec3.fromValues(enemyMissiles[i][0], enemyMissiles[i][1], enemyMissiles[i][2]);
         
         // texture
