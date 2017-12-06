@@ -565,10 +565,10 @@ function loadModels() {
         console.log(e);
     } // end catch
 	
-	enemyMissiles.push([Math.random(), Math.random() * 2 + 1, 0],
-					   [Math.random(), Math.random() * 2 + 1, 0],
-					   [Math.random(), Math.random() * 2 + 1, 0],
-					   [Math.random(), Math.random() * 2 + 1, 0]);
+	enemyMissiles.push([Math.random(), Math.random() * 2 + 1, 0, Math.random() / 100 - (1/100)],
+					   [Math.random(), Math.random() * 2 + 1, 0, Math.random() / 100 - (1/100)],
+					   [Math.random(), Math.random() * 2 + 1, 0, Math.random() / 100 - (1/100)],
+					   [Math.random(), Math.random() * 2 + 1, 0, Math.random() / 100 - (1/100)]);
 } // end load models
 
 // setup the webGL shaders
@@ -859,6 +859,7 @@ function renderModels() {
         gl.drawElements(gl.TRIANGLES,triSetSizes[numTriangleSets+0],gl.UNSIGNED_SHORT,0); // render
 		
 		enemyMissiles[i][1] -= .002;
+		enemyMissiles[i][2] -= enemyMissiles[i][3];
     } // end for each ellipsoid
 } // end render model
 
