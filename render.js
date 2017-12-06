@@ -820,6 +820,9 @@ function renderModels() {
         ellipsoid = inputEllipsoids[0];
 		
 		ellipsoid.center = enemyMissiles[i];
+		ellipsoid.x = enemyMissiles[i][0];
+		ellipsoid.y = enemyMissiles[i][1];
+		ellipsoid.z = enemyMissiles[i][2];
         
         // texture
 		if (ellTextures[0] == -1) {
