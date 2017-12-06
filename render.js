@@ -859,7 +859,7 @@ function renderModels() {
         gl.drawElements(gl.TRIANGLES,triSetSizes[numTriangleSets+0],gl.UNSIGNED_SHORT,0); // render
 		
 		enemyMissiles[i][1] -= .002;
-		enemyMissiles[i][2] -= enemyMissiles[i][3];
+		enemyMissiles[i][0] -= enemyMissiles[i][3];
     } // end for each ellipsoid
 } // end render model
 
