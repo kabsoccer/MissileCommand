@@ -860,6 +860,13 @@ function renderModels() {
 		
 		enemyMissiles[i][1] -= .002;
 		enemyMissiles[i][0] -= enemyMissiles[i][3];
+		
+		if (enemyMissiles[i][1] < 0) {
+			enemyMissiles[i][1] = [[Math.random(), Math.random() * 2 + 1, 0, Math.random() / 500 - (0.5/500)],
+								  [Math.random(), Math.random() * 2 + 1, 0, Math.random() / 500 - (0.5/500)],
+								  [Math.random(), Math.random() * 2 + 1, 0, Math.random() / 500 - (0.5/500)],
+								  [Math.random(), Math.random() * 2 + 1, 0, Math.random() / 500 - (0.5/500)]];
+		}
     } // end for each ellipsoid
 } // end render model
 
