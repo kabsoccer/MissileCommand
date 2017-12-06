@@ -575,6 +575,7 @@ function loadModels() {
 			enemyMissiles[i][3] = enemyMissiles[i][3] * -1;
 		}
 	}
+	console.log(enemyMissiles);
 } // end load models
 
 // setup the webGL shaders
