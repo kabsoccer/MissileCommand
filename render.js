@@ -820,9 +820,7 @@ function renderModels() {
         ellipsoid = inputEllipsoids[0];
 		
 		inputEllipsoids[0].center = enemyMissiles[i];
-		inputEllipsoids[0].x = enemyMissiles[i][0];
-		inputEllipsoids[0].y = enemyMissiles[i][1];
-		inputEllipsoids[0].z = enemyMissiles[i][2];
+		inputEllipsoids[0].translation = vec3.fromValues(enemyMissiles[i][0], enemyMissiles[i][1], enemyMissiles[i][2]);
         
         // texture
 		if (ellTextures[0] == -1) {
