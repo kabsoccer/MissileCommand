@@ -565,10 +565,10 @@ function loadModels() {
         console.log(e);
     } // end catch
 	
-	enemyMissiles.push([Math.random(), Math.random() * 2 + 1, 0, Math.random() / 100 - (1/100)],
-					   [Math.random(), Math.random() * 2 + 1, 0, Math.random() / 100 - (1/100)],
-					   [Math.random(), Math.random() * 2 + 1, 0, Math.random() / 100 - (1/100)],
-					   [Math.random(), Math.random() * 2 + 1, 0, Math.random() / 100 - (1/100)]);
+	enemyMissiles.push([Math.random(), Math.random() * 2 + 1, 0, Math.random() / 100 - (0.5/100)],
+					   [Math.random(), Math.random() * 2 + 1, 0, Math.random() / 100 - (0.5/100)],
+					   [Math.random(), Math.random() * 2 + 1, 0, Math.random() / 100 - (0.5/100)],
+					   [Math.random(), Math.random() * 2 + 1, 0, Math.random() / 100 - (0.5/100)]);
 } // end load models
 
 // setup the webGL shaders
