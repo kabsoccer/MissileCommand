@@ -565,7 +565,7 @@ function loadModels() {
         console.log(e);
     } // end catch
 	
-	enemyMissiles.push([0.5, 1, 0]);
+	enemyMissiles.push([0.5, .5, 0]);
 } // end load models
 
 // setup the webGL shaders
@@ -820,9 +820,9 @@ function renderModels() {
         ellipsoid = inputEllipsoids[0];
 		
 		inputEllipsoids.center = enemyMissiles[i];
-		inputEllipsoids.x = enemyMissiles[i][0];
-		inputEllipsoids.y = enemyMissiles[i][1];
-		inputEllipsoids.z = enemyMissiles[i][2];
+		inputEllipsoids[0].x = enemyMissiles[i][0];
+		inputEllipsoids[0].y = enemyMissiles[i][1];
+		inputEllipsoids[0].z = enemyMissiles[i][2];
         
         // texture
 		if (ellTextures[0] == -1) {
