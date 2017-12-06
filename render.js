@@ -819,7 +819,7 @@ function renderModels() {
     for (var i = 0; i < enemyMissiles.length; i++) {
         ellipsoid = inputEllipsoids[0];
 		
-		inputEllipsoids.center = enemyMissiles[i];
+		inputEllipsoids[0].center = enemyMissiles[i];
 		inputEllipsoids[0].x = enemyMissiles[i][0];
 		inputEllipsoids[0].y = enemyMissiles[i][1];
 		inputEllipsoids[0].z = enemyMissiles[i][2];
