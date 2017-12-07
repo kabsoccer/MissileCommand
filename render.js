@@ -947,8 +947,8 @@ function renderModels() {
 		var newY = friendlyMissiles[i][4] - friendlyMissiles[i][1];
 		
 		if (newX < 0.005 && newY < 0.005) {
-			friendlyMissiles.splice(i, 1); // destroy missile
 			explosions.push([friendlyMissiles[i][0], friendlyMissiles[i][1], explosionLife]);
+			friendlyMissiles.splice(i, 1); // destroy missile
 		} else {
 			
 			var denom = Math.sqrt(Math.pow(newX, 2) + Math.pow(newY, 2));
