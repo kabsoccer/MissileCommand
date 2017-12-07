@@ -256,6 +256,8 @@ function handleKeyDown(event) {
 
 function handleMouseDown(event) {
 	console.log(event.offsetX + ", " + event.offsetY);
+	var xx = event.offsetX / 512;
+	var yy = event.offsetY / 512;
 	if (event.offsetX > 0.7) {
 		friendlyMissiles.push([0.9, 1, 0, event.offsetX, event.offsetY]);
 	} else if (event.offsetX < 0.3) {
