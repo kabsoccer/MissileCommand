@@ -943,7 +943,7 @@ function renderModels() {
 		newX = (newX / denom);
 		newY = (newY / denom);
 		
-		console.log(newX, newY);
+		//console.log(newX, newY);
 		
 		friendlyMissiles[i][0] += newX / 100;
 		friendlyMissiles[i][1] += newY / 100;
