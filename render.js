@@ -945,8 +945,8 @@ function renderModels() {
 		
 		console.log(newX, newY);
 		
-		friendlyMissiles[i][0] += newX;
-		friendlyMissiles[i][1] += newY;
+		friendlyMissiles[i][0] += newX / 100;
+		friendlyMissiles[i][1] += newY / 100;
     } // end for each ellipsoid
 } // end render model
 
