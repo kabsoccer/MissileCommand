@@ -1003,7 +1003,10 @@ function renderModels() {
         // draw a transformed instance of the ellipsoid
         gl.drawElements(gl.TRIANGLES,triSetSizes[numTriangleSets+2],gl.UNSIGNED_SHORT,0); // render
 
-		
+		explosions[i][2]--;
+		if (exposions[i][2] < 0) {
+			explosions.splice(i, 1); // delete after # ticks
+		}
     } // end for each ellipsoid
 } // end render model
 
