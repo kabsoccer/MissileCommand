@@ -839,7 +839,7 @@ function renderModels() {
         
     } // end for each triangle set
     
-    // render each ellipsoid
+    // render each enemy missile
     var ellipsoid, instanceTransform = mat4.create(); // the current ellipsoid and material
     
     for (var i = 0; i < enemyMissiles.length; i++) {
@@ -893,6 +893,48 @@ function renderModels() {
 				enemyMissiles[i][3] = enemyMissiles[i][3] * -1;
 			}
 		}
+		
+    } // end for each enemy missile
+	
+	// render each friendly missile
+	for (var i = 0; i < friendlyMissiles.length; i++) {
+        ellipsoid = inputEllipsoids[1];
+		
+		//inputEllipsoids[1].center = friendlyMissiles[i];
+		inputEllipsoids[1].translation = vec3.fromValues(friendlyMissiles[i][0], friendlyMissiles[i][1], friendlyMissiles[i][2]);
+        
+        // texture
+		if (ellTextures[1] == -1) {
+			gl.uniform1i(texModeULoc, -1);
+		} else {
+			gl.uniform1i(texModeULoc, textureMode);
+			gl.activeTexture(gl.TEXTURE0);
+			gl.bindTexture(gl.TEXTURE_2D, ellTextures[1].texture);
+			gl.uniform1i(textureULoc, 0);
+		}
+        
+        // define model transform, premult with pvmMatrix, feed to vertex shader
+        makeModelTransform(ellipsoid);
+        pvmMatrix = mat4.multiply(pvmMatrix,pvMatrix,mMatrix); // premultiply with pv matrix
+        gl.uniformMatrix4fv(mMatrixULoc, false, mMatrix); // pass in model matrix
+        gl.uniformMatrix4fv(pvmMatrixULoc, false, pvmMatrix); // pass in project view model matrix
+
+        // reflectivity: feed to the fragment shader
+        gl.uniform3fv(ambientULoc,ellipsoid.ambient); // pass in the ambient reflectivity
+        gl.uniform3fv(diffuseULoc,ellipsoid.diffuse); // pass in the diffuse reflectivity
+        gl.uniform3fv(specularULoc,ellipsoid.specular); // pass in the specular reflectivity
+        gl.uniform1f(shininessULoc,ellipsoid.n); // pass in the specular exponent
+
+        gl.bindBuffer(gl.ARRAY_BUFFER,vertexBuffers[numTriangleSets+1]); // activate vertex buffer
+        gl.vertexAttribPointer(vPosAttribLoc,3,gl.FLOAT,false,0,0); // feed vertex buffer to shader
+        gl.bindBuffer(gl.ARRAY_BUFFER,normalBuffers[numTriangleSets+1]); // activate normal buffer
+        gl.vertexAttribPointer(vNormAttribLoc,3,gl.FLOAT,false,0,0); // feed normal buffer to shader
+        gl.bindBuffer(gl.ARRAY_BUFFER,UVBuffers[numTriangleSets+1]); // activate
+        gl.vertexAttribPointer(vTexAttribLoc,2,gl.FLOAT,false,0,0); // feed
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,triangleBuffers[numTriangleSets+1]); // activate tri buffer
+        
+        // draw a transformed instance of the ellipsoid
+        gl.drawElements(gl.TRIANGLES,triSetSizes[numTriangleSets+1],gl.UNSIGNED_SHORT,0); // render
 		
     } // end for each ellipsoid
 } // end render model
