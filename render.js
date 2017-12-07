@@ -256,6 +256,14 @@ function handleKeyDown(event) {
 
 function handleMouseDown(event) {
 	console.log(event.offsetX + ", " + event.offsetY);
+	if (event.offsetX > 0.7) {
+		friendlyMissiles.push([0.9, 1, 0, event.offsetX, event.offsetY]);
+	} else if (event.offsetX < 0.3) {
+		friendlyMissiles.push([0.1, 1, 0, event.offsetX, event.offsetY]);
+	} else {
+		friendlyMissiles.push([0.5, 1, 0, event.offsetX, event.offsetY]);
+	}
+	console.log(friendlyMissiles);
 }
 
 // set up the webGL environment
