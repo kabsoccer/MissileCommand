@@ -937,7 +937,7 @@ function renderModels() {
         gl.drawElements(gl.TRIANGLES,triSetSizes[numTriangleSets+1],gl.UNSIGNED_SHORT,0); // render
 		
 		friendlyMissiles[i][1] += 0.002;
-		friendlyMissiles[i][0] += (friendlyMissiles[i][3] - friendlyMissiles[i][0]) / 100;
+		friendlyMissiles[i][0] -= (friendlyMissiles[i][3] - friendlyMissiles[i][0]) / 100;
 		
     } // end for each ellipsoid
 } // end render model
