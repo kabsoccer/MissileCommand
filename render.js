@@ -262,7 +262,7 @@ function handleMouseDown(event) {
 		friendlyMissiles.push([0.9, 0.1, 0, xx, yy]);
 	} else if (xx < 0.3) {
 		friendlyMissiles.push([0.1, 0.1, 0, xx, yy]);
-	} else {
+	} else if (xx <= 0.7 && xx >= 0.3) {
 		friendlyMissiles.push([0.5, 0.1, 0, xx, yy]);
 	}
 	console.log(friendlyMissiles);
@@ -939,15 +939,21 @@ function renderModels() {
 				
 		var newX = friendlyMissiles[i][3] - friendlyMissiles[i][0];
 		var newY = friendlyMissiles[i][4] - friendlyMissiles[i][1];
-		var denom = Math.sqrt(Math.pow(newX, 2) + Math.pow(newY, 2));
 		
-		newX = (newX / denom);
-		newY = (newY / denom);
-		
-		//console.log(newX, newY);
-		
-		friendlyMissiles[i][0] += newX / 100;
-		friendlyMissiles[i][1] += newY / 100;
+		if (newX < 0.0001 && newY < 0.0001) {
+			friendlyMissiles.splice(i, 1); // destroy missile
+		} else {
+			
+			var denom = Math.sqrt(Math.pow(newX, 2) + Math.pow(newY, 2));
+			
+			newX = (newX / denom);
+			newY = (newY / denom);
+			
+			//console.log(newX, newY);
+			
+			friendlyMissiles[i][0] += newX / 100;
+			friendlyMissiles[i][1] += newY / 100;
+		}
     } // end for each ellipsoid
 } // end render model
 
