@@ -259,11 +259,11 @@ function handleMouseDown(event) {
 	var xx = event.offsetX / 512;
 	var yy = event.offsetY / 512;
 	if (xx > 0.7) {
-		friendlyMissiles.push([0.1, 1, 0, xx, yy]);
+		friendlyMissiles.push([0.1, 0.1, 0, xx, yy]);
 	} else if (xx < 0.3) {
-		friendlyMissiles.push([0.9, 1, 0, xx, yy]);
+		friendlyMissiles.push([0.9, 0.1, 0, xx, yy]);
 	} else {
-		friendlyMissiles.push([0.5, 1, 0, xx, yy]);
+		friendlyMissiles.push([0.5, 0.1, 0, xx, yy]);
 	}
 	console.log(friendlyMissiles);
 }
