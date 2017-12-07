@@ -940,11 +940,11 @@ function renderModels() {
 		var newY = friendlyMissiles[i][4] - friendlyMissiles[i][1];
 		var denom = Math.sqrt(Math.pow(newX, 2) + Math.pow(newY, 2));
 		
-		newX = (newX / denom) / 100;
-		newY = (newY / denom) / 100;
+		newX = (newX / denom);
+		newY = (newY / denom);
 		
-		friendlyMissiles[i][0] = newX;
-		friendlyMissiles[i][1] = newY;
+		friendlyMissiles[i][0] += newX;
+		friendlyMissiles[i][1] += newY;
     } // end for each ellipsoid
 } // end render model
 
