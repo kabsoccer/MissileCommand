@@ -23,6 +23,7 @@ var triTextures = [];
 var ellTextures = [];
 
 var enemyMissiles = [];
+var friendlyMissiles = [];
 
 var vertexBuffers = []; // this contains vertex coordinate lists by set, in triples
 var normalBuffers = []; // this contains normal component lists by set, in triples
@@ -253,11 +254,16 @@ function handleKeyDown(event) {
     } // end switch
 } // end handleKeyDown
 
+function handleMouseDown(event) {
+	alert(event.offsetX, event.offsetY);
+}
+
 // set up the webGL environment
 function setupWebGL() {
     
     // Set up keys
     document.onkeydown = handleKeyDown; // call this when key pressed
+	document.onmousedown = handleMouseDown;
 
       // Get the image canvas, render an image in it
      var imageCanvas = document.getElementById("myImageCanvas"); // create a 2d canvas
