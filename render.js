@@ -940,7 +940,7 @@ function renderModels() {
 		var newX = friendlyMissiles[i][3] - friendlyMissiles[i][0];
 		var newY = friendlyMissiles[i][4] - friendlyMissiles[i][1];
 		
-		if (newX < 0.001 && newY < 0.001) {
+		if (newX < 0.005 && newY < 0.005) {
 			friendlyMissiles.splice(i, 1); // destroy missile
 		} else {
 			
