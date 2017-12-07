@@ -4,8 +4,8 @@
 const INPUT_TRIANGLES_URL = "https://pages.github.ncsu.edu/kabartus/Missile-Command/triangles.json"; // triangles file loc
 const INPUT_ELLIPSOIDS_URL = "https://pages.github.ncsu.edu/kabartus/Missile-Command/ellipsoids.json"; // ellipsoids file loc
 const BASE_URL = "https://pages.github.ncsu.edu/kabartus/Missile-Command/";
-var defaultEye = vec3.fromValues(0.5,0.5,-1.5); // default eye position in world space
-var defaultCenter = vec3.fromValues(0.5,0.5,0.5); // default view direction in world space
+var defaultEye = vec3.fromValues(1,0.05,-1.5); // default eye position in world space
+var defaultCenter = vec3.fromValues(1,0.05,0.5); // default view direction in world space
 var defaultUp = vec3.fromValues(0,1,0); // default view up vector
 var lightAmbient = vec3.fromValues(1,1,1); // default light ambient emission
 var lightDiffuse = vec3.fromValues(1,1,1); // default light diffuse emission
