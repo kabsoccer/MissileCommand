@@ -263,7 +263,7 @@ function handleMouseDown(event) {
 		friendlyMissiles.push([0.9, 0.1, 0, xx, yy]);
 	} else if (xx < 0.3 && xx >= 0.0) {
 		friendlyMissiles.push([0.1, 0.1, 0, xx, yy]);
-	} else {
+	} else if (xx <= 0.7 && xx >= 0.3) {
 		friendlyMissiles.push([0.5, 0.1, 0, xx, yy]);
 	}
 	console.log(friendlyMissiles);
