@@ -793,7 +793,7 @@ function renderModels() {
     
     // set up projection and view
     // mat4.fromScaling(hMatrix,vec3.fromValues(-1,1,1)); // create handedness matrix
-    mat4.perspective(pMatrix,0.25*Math.PI,1,0.1,10); // create projection matrix
+    //mat4.perspective(pMatrix,0.25*Math.PI,1,0.1,10); // create projection matrix
     mat4.lookAt(vMatrix,Eye,Center,Up); // create view matrix
     mat4.multiply(pvMatrix,pvMatrix,pMatrix); // projection
     mat4.multiply(pvMatrix,pvMatrix,vMatrix); // projection * view
