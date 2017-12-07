@@ -10,7 +10,7 @@ var defaultUp = vec3.fromValues(0,1,0); // default view up vector
 var lightAmbient = vec3.fromValues(1,1,1); // default light ambient emission
 var lightDiffuse = vec3.fromValues(1,1,1); // default light diffuse emission
 var lightSpecular = vec3.fromValues(1,1,1); // default light specular emission
-var lightPosition = vec3.fromValues(2,4,-0.5); // default light position
+var lightPosition = vec3.fromValues(.5,2,-1); // default light position
 var rotateTheta = Math.PI/50; // how much to rotate models by with each key press
 
 /* webgl and geometry data */
