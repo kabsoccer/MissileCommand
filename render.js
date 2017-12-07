@@ -256,11 +256,11 @@ function handleKeyDown(event) {
 
 function handleMouseDown(event) {
 	console.log(event.offsetX + ", " + event.offsetY);
-	var xx = event.offsetX / 512;
-	var yy = event.offsetY / 512;
-	if (xx > 0.7) {
+	var xx = 1 - (event.offsetX / 512);
+	var yy = 1 - (event.offsetY / 512);
+	if (xx < 0.7) {
 		friendlyMissiles.push([0.1, 0.1, 0, xx, yy]);
-	} else if (xx < 0.3) {
+	} else if (xx > 0.3) {
 		friendlyMissiles.push([0.9, 0.1, 0, xx, yy]);
 	} else {
 		friendlyMissiles.push([0.5, 0.1, 0, xx, yy]);
@@ -937,7 +937,7 @@ function renderModels() {
         gl.drawElements(gl.TRIANGLES,triSetSizes[numTriangleSets+1],gl.UNSIGNED_SHORT,0); // render
 		
 		friendlyMissiles[i][1] += 0.002;
-		friendlyMissiles[i][0] -= (friendlyMissiles[i][3] - friendlyMissiles[i][0]) / 100;
+		friendlyMissiles[i][0] += (friendlyMissiles[i][3] - friendlyMissiles[i][0]) / 100;
 		
     } // end for each ellipsoid
 } // end render model
