@@ -255,7 +255,7 @@ function handleKeyDown(event) {
 } // end handleKeyDown
 
 function handleMouseDown(event) {
-	alert(event.offsetX, event.offsetY);
+	console.log(event.offsetX + ", " + event.offsetY);
 }
 
 // set up the webGL environment
