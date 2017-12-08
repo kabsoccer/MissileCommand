@@ -272,11 +272,26 @@ function handleMouseDown(event) {
 		return;
 	}
 	if (xx > 0.7 && xx <= 1.0) {
-		friendlyMissiles.push([0.9, 0.1, 0, xx, yy]);
+		if (silos[2] != -1)
+			friendlyMissiles.push([0.9, 0.1, 0, xx, yy]);
+		else if (silos[1] != -1)
+			friendlyMissiles.push([0.5, 0.1, 0, xx, yy]);
+		else
+			friendlyMissiles.push([0.1, 0.1, 0, xx, yy]);
 	} else if (xx < 0.3 && xx >= 0.0) {
-		friendlyMissiles.push([0.1, 0.1, 0, xx, yy]);
+		if (silos[0] != -1)
+			friendlyMissiles.push([0.1, 0.1, 0, xx, yy]);
+		else if (silos[1] != -1)
+			friendlyMissiles.push([0.5, 0.1, 0, xx, yy]);
+		else
+			friendlyMissiles.push([0.9, 0.1, 0, xx, yy]);
 	} else if (xx <= 0.7 && xx >= 0.3) {
-		friendlyMissiles.push([0.5, 0.1, 0, xx, yy]);
+		if (silos[1] != -1)
+			friendlyMissiles.push([0.5, 0.1, 0, xx, yy]);
+		else if (silos[0] != -1)
+			friendlyMissiles.push([0.1, 0.1, 0, xx, yy]);
+		else
+			friendlyMissiles.push([0.9, 0.1, 0, xx, yy]);
 	}
 	//console.log(friendlyMissiles);
 }
@@ -889,6 +904,9 @@ function renderModels() {
 	}
 	
 	for (var i = 0; i < silos.length; i++) {
+		if (silos[i] == -1) {
+			continue;
+		}
 		var currSet = inputTriangles[2];
 		
 		inputTriangles[2].translation = vec3.fromValues(silos[i][0], silos[i][1], silos[i][2]);
@@ -978,6 +996,27 @@ function renderModels() {
 			if ((enemyMissiles[i][0] <= buildings[j][0] + 0.05 && enemyMissiles[i][0] >= buildings[j][0] - 0.05) &&
 				(enemyMissiles[i][1] <= buildings[j][1] + 0.05 && enemyMissiles[i][1] >= buildings[j][1] - 0.05)) {
 				buildings.splice(j, 1);
+				enemyMissiles[i][0] = Math.random();
+				enemyMissiles[i][1] = Math.random() * 2 + 1;
+				enemyMissiles[i][2] = 0;
+				enemyMissiles[i][3] = Math.random() / 500 - (0.5/500);
+				if (enemyMissiles[i][0] < 0.5) {
+					enemyMissiles[i][3] = enemyMissiles[i][3] * -1;
+				}
+			}
+		}
+		
+		for (var j = 0; j < silos.length; j++) {
+			if ((enemyMissiles[i][0] <= silos[j][0] + 0.05 && enemyMissiles[i][0] >= silos[j][0] - 0.05) &&
+				(enemyMissiles[i][1] <= silos[j][1] + 0.05 && enemyMissiles[i][1] >= silos[j][1] - 0.05)) {
+				silos[j] = -1;
+				enemyMissiles[i][0] = Math.random();
+				enemyMissiles[i][1] = Math.random() * 2 + 1;
+				enemyMissiles[i][2] = 0;
+				enemyMissiles[i][3] = Math.random() / 500 - (0.5/500);
+				if (enemyMissiles[i][0] < 0.5) {
+					enemyMissiles[i][3] = enemyMissiles[i][3] * -1;
+				}
 			}
 		}
 		
