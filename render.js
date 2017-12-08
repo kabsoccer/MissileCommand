@@ -780,6 +780,7 @@ function setupShaders() {
 function renderModels() {
 	
 	if (silos[0] == -1 && silos[1] == -1 && silos[2] == -1) {
+		gameOver();
 		return;
 	}
     
@@ -1167,7 +1168,6 @@ function main() {
   loadTextures();
   setupShaders(); // setup the webGL shaders
   renderModels(); // draw the triangles using webGL
-  gameOver();
 } // end main
 
 function gameOver() {
