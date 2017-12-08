@@ -1003,11 +1003,6 @@ function renderModels() {
         
         // draw a transformed instance of the ellipsoid
         gl.drawElements(gl.TRIANGLES,triSetSizes[numTriangleSets+2],gl.UNSIGNED_SHORT,0); // render
-
-		explosions[i][2]--;
-		if (explosions[i][2] < 0) {
-			explosions.splice(i, 1); // delete after # ticks
-		}
 		
 		// Collision with enemy missiles
 		for (var j = 0; j < enemyMissiles.length; j++) {
@@ -1021,6 +1016,11 @@ function renderModels() {
 					enemyMissiles[j][3] = enemyMissiles[j][3] * -1;
 				}
 			}
+		}
+
+		explosions[i][2]--;
+		if (explosions[i][2] < 0) {
+			explosions.splice(i, 1); // delete after # ticks
 		}
     } // end for each ellipsoid
 } // end render model
