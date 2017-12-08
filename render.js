@@ -778,6 +778,10 @@ function setupShaders() {
 
 // render the loaded model
 function renderModels() {
+	
+	if (silos[0] == -1 && silos[1] == -1 && silos[2] == -1) {
+		return;
+	}
     
     // construct the model transform matrix, based on model state
     function makeModelTransform(currModel) {
@@ -1163,7 +1167,11 @@ function main() {
   loadTextures();
   setupShaders(); // setup the webGL shaders
   renderModels(); // draw the triangles using webGL
-  
+  gameOver();
 } // end main
+
+function gameOver() {
+	alert("Game Over");
+}
 
 main();
