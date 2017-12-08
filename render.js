@@ -264,7 +264,7 @@ function handleMouseDown(event) {
 	//console.log(event.offsetX + ", " + event.offsetY);
 	var xx = 1 - (event.offsetX / 512);
 	var yy = 1 - (event.offsetY / 512);
-	console.log(xx, yy);
+	//console.log(xx, yy);
 	if (yy < 0.1) {
 		return;
 	}
@@ -275,7 +275,7 @@ function handleMouseDown(event) {
 	} else if (xx <= 0.7 && xx >= 0.3) {
 		friendlyMissiles.push([0.5, 0.1, 0, xx, yy]);
 	}
-	console.log(friendlyMissiles);
+	//console.log(friendlyMissiles);
 }
 
 // set up the webGL environment
@@ -323,7 +323,7 @@ function loadTextures() {
 			triTextures[i] = loadImageAndCreateTextureInfo(BASE_URL + inputTriangles[i].material.texture);
 		}
     }
-    console.log(triTextures);
+    //console.log(triTextures);
     
     for (var i = 0; i < inputEllipsoids.length; i++) {
 		if (inputEllipsoids[i].texture == "none") {
@@ -332,7 +332,7 @@ function loadTextures() {
 			ellTextures[i] = loadImageAndCreateTextureInfo(BASE_URL + inputEllipsoids[i].texture);
 		}
     }
-    console.log(ellTextures);
+    //console.log(ellTextures);
 }
 
 // creates a texture info { width: w, height: h, texture: tex }
@@ -386,7 +386,7 @@ function loadModels() {
                 throw "in makeSphere: number of longitude steps too small!";
             else { // good number longitude steps
             
-                console.log("ellipsoid xyz: "+ ellipsoid.x +" "+ ellipsoid.y +" "+ ellipsoid.z);
+                //console.log("ellipsoid xyz: "+ ellipsoid.x +" "+ ellipsoid.y +" "+ ellipsoid.z);
                 
                 // make vertices
                 var ellipsoidVertices = [0,-1,0]; // vertices to return, init to south pole
@@ -408,8 +408,8 @@ function loadModels() {
                 ellipsoidVertices.push(0,1,0); // add north pole
                 ellipsoidUVs.push(.5,1); // add north pole UV
                 
-                console.log(ellipsoidUVs);
-                console.log(ellipsoidVertices);
+                //console.log(ellipsoidUVs);
+                //console.log(ellipsoidVertices);
                 ellipsoidVertices = ellipsoidVertices.map(function(val,idx) { // position and scale ellipsoid
                     switch (idx % 3) {
                         case 0: // x
@@ -600,7 +600,7 @@ function loadModels() {
 			enemyMissiles[i][3] = enemyMissiles[i][3] * -1;
 		}
 	}
-	console.log(enemyMissiles);
+	//console.log(enemyMissiles);
 } // end load models
 
 // setup the webGL shaders
