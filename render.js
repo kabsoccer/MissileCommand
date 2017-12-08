@@ -973,6 +973,13 @@ function renderModels() {
 		enemyMissiles[i][1] -= .002;
 		enemyMissiles[i][0] -= enemyMissiles[i][3];
 		
+		// Check for collisions
+		for (var j = 0; j < buildings.length; j++) {
+			if ((enemyMissiles[i][0] <= buildings[j][0] + 0.05 && enemyMissiles[i][0] >= buildings[j][0] - 0.05) &&
+				(enemyMissiles[i][1] <= buildings[j][1] + 0.05 && enemyMissiles[i][1] >= buildings[j][1] - 0.05)) {
+				buildings.splice(j, 1);
+		}
+		
 		if (enemyMissiles[i][1] < 0) {
 			enemyMissiles[i][0] = Math.random();
 			enemyMissiles[i][1] = Math.random() * 2 + 1;
