@@ -26,6 +26,7 @@ var enemyMissiles = [];
 var friendlyMissiles = [];
 var explosions = [];
 var explosionLife = 10;
+var explosionRadius = 0.05;
 
 var vertexBuffers = []; // this contains vertex coordinate lists by set, in triples
 var normalBuffers = []; // this contains normal component lists by set, in triples
@@ -1006,6 +1007,14 @@ function renderModels() {
 		explosions[i][2]--;
 		if (explosions[i][2] < 0) {
 			explosions.splice(i, 1); // delete after # ticks
+		}
+		
+		// Collision with enemy missiles
+		for (var j = 0; j < enemyMissiles.length; j++) {
+			var dist = Math.sqrt(Math.pow(enemyMissiles[j][0] - explosions[i][0], 2) + Math.pow(enemyMissiles[j][1] - explosions[i][1], 2));
+			if (dist <= explosionRadius) {
+				enemyMissiles.splice(j, 1);
+			}
 		}
     } // end for each ellipsoid
 } // end render model
