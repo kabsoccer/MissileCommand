@@ -27,7 +27,7 @@ var friendlyMissiles = [];
 var explosions = [];
 var explosionLife = 10;
 var explosionRadius = 0.05;
-var numEnemyMissiles = 6;
+var numEnemyMissiles = 10;
 
 var vertexBuffers = []; // this contains vertex coordinate lists by set, in triples
 var normalBuffers = []; // this contains normal component lists by set, in triples
