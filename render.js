@@ -978,6 +978,7 @@ function renderModels() {
 			if ((enemyMissiles[i][0] <= buildings[j][0] + 0.05 && enemyMissiles[i][0] >= buildings[j][0] - 0.05) &&
 				(enemyMissiles[i][1] <= buildings[j][1] + 0.05 && enemyMissiles[i][1] >= buildings[j][1] - 0.05)) {
 				buildings.splice(j, 1);
+			}
 		}
 		
 		if (enemyMissiles[i][1] < 0) {
