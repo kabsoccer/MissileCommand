@@ -24,6 +24,8 @@ var ellTextures = [];
 
 var enemyMissiles = [];
 var friendlyMissiles = [];
+var buildings = [[0.25, 0, 0],
+                 [0.75, 0, 0]];
 var explosions = [];
 var explosionLife = 10;
 var explosionRadius = 0.05;
@@ -806,46 +808,82 @@ function renderModels() {
     mat4.multiply(pvMatrix,pvMatrix,pMatrix); // projection
     mat4.multiply(pvMatrix,pvMatrix,vMatrix); // projection * view
 
-    // render each triangle set
-    var currSet; // the tri set and its material properties
-    for (var whichTriSet=0; whichTriSet<numTriangleSets; whichTriSet++) {
-        currSet = inputTriangles[whichTriSet];
+    // render terrain
+    var currSet = inputTriangles[0];
         
-        // make model transform, add to view project
-        makeModelTransform(currSet);
-        mat4.multiply(pvmMatrix,pvMatrix,mMatrix); // project * view * model
-        gl.uniformMatrix4fv(mMatrixULoc, false, mMatrix); // pass in the m matrix
-        gl.uniformMatrix4fv(pvmMatrixULoc, false, pvmMatrix); // pass in the hpvm matrix
+	// make model transform, add to view project
+	makeModelTransform(currSet);
+	mat4.multiply(pvmMatrix,pvMatrix,mMatrix); // project * view * model
+	gl.uniformMatrix4fv(mMatrixULoc, false, mMatrix); // pass in the m matrix
+	gl.uniformMatrix4fv(pvmMatrixULoc, false, pvmMatrix); // pass in the hpvm matrix
+	
+	// reflectivity: feed to the fragment shader
+	gl.uniform3fv(ambientULoc,currSet.material.ambient); // pass in the ambient reflectivity
+	gl.uniform3fv(diffuseULoc,currSet.material.diffuse); // pass in the diffuse reflectivity
+	gl.uniform3fv(specularULoc,currSet.material.specular); // pass in the specular reflectivity
+	gl.uniform1f(shininessULoc,currSet.material.n); // pass in the specular exponent
+	
+	// texture
+	if (triTextures[0] == -1) {
+		gl.uniform1i(texModeULoc, -1);
+	} else {
+		gl.uniform1i(texModeULoc, textureMode);
+		gl.activeTexture(gl.TEXTURE0);
+		gl.bindTexture(gl.TEXTURE_2D, triTextures[0].texture);
+		gl.uniform1i(textureULoc, 0);
+	}
+	
+	// vertex buffer: activate and feed into vertex shader
+	gl.bindBuffer(gl.ARRAY_BUFFER,vertexBuffers[0]); // activate
+	gl.vertexAttribPointer(vPosAttribLoc,3,gl.FLOAT,false,0,0); // feed
+	gl.bindBuffer(gl.ARRAY_BUFFER,normalBuffers[0]); // activate
+	gl.vertexAttribPointer(vNormAttribLoc,3,gl.FLOAT,false,0,0); // feed
+	gl.bindBuffer(gl.ARRAY_BUFFER,UVBuffers[0]); // activate
+	gl.vertexAttribPointer(vTexAttribLoc,2,gl.FLOAT,false,0,0); // feed
+
+	// triangle buffer: activate and render
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,triangleBuffers[0]); // activate
+	gl.drawElements(gl.TRIANGLES,3*triSetSizes[0],gl.UNSIGNED_SHORT,0); // render
+	
+	for (var i = 0; i < buildings.length; i++) {
+		var currSet = inputTriangles[1];
+		
+		inputTriangles[1].translation = vec3.fromValues(buildings[i][0], buildings[i][1], buildings[i][2]);
         
-        // reflectivity: feed to the fragment shader
-        gl.uniform3fv(ambientULoc,currSet.material.ambient); // pass in the ambient reflectivity
-        gl.uniform3fv(diffuseULoc,currSet.material.diffuse); // pass in the diffuse reflectivity
-        gl.uniform3fv(specularULoc,currSet.material.specular); // pass in the specular reflectivity
-        gl.uniform1f(shininessULoc,currSet.material.n); // pass in the specular exponent
-        
-        // texture
-		if (triTextures[whichTriSet] == -1) {
+		// make model transform, add to view project
+		makeModelTransform(currSet);
+		mat4.multiply(pvmMatrix,pvMatrix,mMatrix); // project * view * model
+		gl.uniformMatrix4fv(mMatrixULoc, false, mMatrix); // pass in the m matrix
+		gl.uniformMatrix4fv(pvmMatrixULoc, false, pvmMatrix); // pass in the hpvm matrix
+		
+		// reflectivity: feed to the fragment shader
+		gl.uniform3fv(ambientULoc,currSet.material.ambient); // pass in the ambient reflectivity
+		gl.uniform3fv(diffuseULoc,currSet.material.diffuse); // pass in the diffuse reflectivity
+		gl.uniform3fv(specularULoc,currSet.material.specular); // pass in the specular reflectivity
+		gl.uniform1f(shininessULoc,currSet.material.n); // pass in the specular exponent
+		
+		// texture
+		if (triTextures[i] == -1) {
 			gl.uniform1i(texModeULoc, -1);
 		} else {
 			gl.uniform1i(texModeULoc, textureMode);
 			gl.activeTexture(gl.TEXTURE0);
-			gl.bindTexture(gl.TEXTURE_2D, triTextures[whichTriSet].texture);
+			gl.bindTexture(gl.TEXTURE_2D, triTextures[i].texture);
 			gl.uniform1i(textureULoc, 0);
 		}
-        
-        // vertex buffer: activate and feed into vertex shader
-        gl.bindBuffer(gl.ARRAY_BUFFER,vertexBuffers[whichTriSet]); // activate
-        gl.vertexAttribPointer(vPosAttribLoc,3,gl.FLOAT,false,0,0); // feed
-        gl.bindBuffer(gl.ARRAY_BUFFER,normalBuffers[whichTriSet]); // activate
-        gl.vertexAttribPointer(vNormAttribLoc,3,gl.FLOAT,false,0,0); // feed
-        gl.bindBuffer(gl.ARRAY_BUFFER,UVBuffers[whichTriSet]); // activate
-        gl.vertexAttribPointer(vTexAttribLoc,2,gl.FLOAT,false,0,0); // feed
+		
+		// vertex buffer: activate and feed into vertex shader
+		gl.bindBuffer(gl.ARRAY_BUFFER,vertexBuffers[1]); // activate
+		gl.vertexAttribPointer(vPosAttribLoc,3,gl.FLOAT,false,0,0); // feed
+		gl.bindBuffer(gl.ARRAY_BUFFER,normalBuffers[1]); // activate
+		gl.vertexAttribPointer(vNormAttribLoc,3,gl.FLOAT,false,0,0); // feed
+		gl.bindBuffer(gl.ARRAY_BUFFER,UVBuffers[1]); // activate
+		gl.vertexAttribPointer(vTexAttribLoc,2,gl.FLOAT,false,0,0); // feed
 
-        // triangle buffer: activate and render
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,triangleBuffers[whichTriSet]); // activate
-        gl.drawElements(gl.TRIANGLES,3*triSetSizes[whichTriSet],gl.UNSIGNED_SHORT,0); // render
-        
-    } // end for each triangle set
+		// triangle buffer: activate and render
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,triangleBuffers[1]); // activate
+		gl.drawElements(gl.TRIANGLES,3*triSetSizes[1],gl.UNSIGNED_SHORT,0); // render
+	}
     
     // render each enemy missile
     var ellipsoid, instanceTransform = mat4.create(); // the current ellipsoid and material
