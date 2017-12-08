@@ -1013,7 +1013,13 @@ function renderModels() {
 		for (var j = 0; j < enemyMissiles.length; j++) {
 			var dist = Math.sqrt(Math.pow(enemyMissiles[j][0] - explosions[i][0], 2) + Math.pow(enemyMissiles[j][1] - explosions[i][1], 2));
 			if (dist <= explosionRadius) {
-				enemyMissiles.splice(j, 1);
+				enemyMissiles[j][0] = Math.random();
+				enemyMissiles[j][1] = Math.random() * 2 + 1;
+				enemyMissiles[j][2] = 0;
+				enemyMissiles[j][3] = Math.random() / 500 - (0.5/500);
+				if (enemyMissiles[j][0] < 0.5) {
+					enemyMissiles[j][3] = enemyMissiles[j][3] * -1;
+				}
 			}
 		}
     } // end for each ellipsoid
