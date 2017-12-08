@@ -863,12 +863,12 @@ function renderModels() {
 		gl.uniform1f(shininessULoc,currSet.material.n); // pass in the specular exponent
 		
 		// texture
-		if (triTextures[i] == -1) {
+		if (triTextures[1] == -1) {
 			gl.uniform1i(texModeULoc, -1);
 		} else {
 			gl.uniform1i(texModeULoc, textureMode);
 			gl.activeTexture(gl.TEXTURE0);
-			gl.bindTexture(gl.TEXTURE_2D, triTextures[i].texture);
+			gl.bindTexture(gl.TEXTURE_2D, triTextures[1].texture);
 			gl.uniform1i(textureULoc, 0);
 		}
 		
