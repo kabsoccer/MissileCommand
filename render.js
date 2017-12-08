@@ -26,6 +26,9 @@ var enemyMissiles = [];
 var friendlyMissiles = [];
 var buildings = [[0.2, 0, 0],
                  [0.7, 0, 0]];
+var silos = [[0.1, 0, 0],
+			 [0.5, 0, 0],
+			 [0.9, 0, 0]];
 var explosions = [];
 var explosionLife = 10;
 var explosionRadius = 0.05;
@@ -883,6 +886,46 @@ function renderModels() {
 		// triangle buffer: activate and render
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,triangleBuffers[1]); // activate
 		gl.drawElements(gl.TRIANGLES,3*triSetSizes[1],gl.UNSIGNED_SHORT,0); // render
+	}
+	
+	for (var i = 0; i < silos.length; i++) {
+		var currSet = inputTriangles[2];
+		
+		inputTriangles[2].translation = vec3.fromValues(silos[i][0], silos[i][1], silos[i][2]);
+        
+		// make model transform, add to view project
+		makeModelTransform(currSet);
+		mat4.multiply(pvmMatrix,pvMatrix,mMatrix); // project * view * model
+		gl.uniformMatrix4fv(mMatrixULoc, false, mMatrix); // pass in the m matrix
+		gl.uniformMatrix4fv(pvmMatrixULoc, false, pvmMatrix); // pass in the hpvm matrix
+		
+		// reflectivity: feed to the fragment shader
+		gl.uniform3fv(ambientULoc,currSet.material.ambient); // pass in the ambient reflectivity
+		gl.uniform3fv(diffuseULoc,currSet.material.diffuse); // pass in the diffuse reflectivity
+		gl.uniform3fv(specularULoc,currSet.material.specular); // pass in the specular reflectivity
+		gl.uniform1f(shininessULoc,currSet.material.n); // pass in the specular exponent
+		
+		// texture
+		if (triTextures[2] == -1) {
+			gl.uniform1i(texModeULoc, -1);
+		} else {
+			gl.uniform1i(texModeULoc, textureMode);
+			gl.activeTexture(gl.TEXTURE0);
+			gl.bindTexture(gl.TEXTURE_2D, triTextures[2].texture);
+			gl.uniform1i(textureULoc, 0);
+		}
+		
+		// vertex buffer: activate and feed into vertex shader
+		gl.bindBuffer(gl.ARRAY_BUFFER,vertexBuffers[2]); // activate
+		gl.vertexAttribPointer(vPosAttribLoc,3,gl.FLOAT,false,0,0); // feed
+		gl.bindBuffer(gl.ARRAY_BUFFER,normalBuffers[2]); // activate
+		gl.vertexAttribPointer(vNormAttribLoc,3,gl.FLOAT,false,0,0); // feed
+		gl.bindBuffer(gl.ARRAY_BUFFER,UVBuffers[2]); // activate
+		gl.vertexAttribPointer(vTexAttribLoc,2,gl.FLOAT,false,0,0); // feed
+
+		// triangle buffer: activate and render
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,triangleBuffers[2]); // activate
+		gl.drawElements(gl.TRIANGLES,3*triSetSizes[2],gl.UNSIGNED_SHORT,0); // render
 	}
     
     // render each enemy missile
