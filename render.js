@@ -24,8 +24,8 @@ var ellTextures = [];
 
 var enemyMissiles = [];
 var friendlyMissiles = [];
-var buildings = [[0.3, 0, 0],
-                 [0.8, 0, 0]];
+var buildings = [[0.2, 0, 0],
+                 [0.7, 0, 0]];
 var explosions = [];
 var explosionLife = 10;
 var explosionRadius = 0.05;
